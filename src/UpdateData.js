@@ -47,7 +47,7 @@ useEffect(() => {
   emergencyhp.current.value = temp.current.emergencyhp;
   pemilikunit.current.value = temp.current.pemilikunit;
 }
-}, [temp.current]);
+}, []);
 
 const numberListenereven = Emitter.listenerCount('actioneven', fillinupdate);
 if(numberListenereven < 1){
