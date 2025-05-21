@@ -1,9 +1,8 @@
-import React, {useState, useRef, createContext} from 'react';
+import React, {useState} from 'react';
 import './RwMain.css';
 import Signinpage from './Signinpage';
 import Adminpage from './Adminpage';
 import DataProcess from './DataProcess';
-import Cover from './images/cover.jpg';
 
 const RwMain = () => {
 

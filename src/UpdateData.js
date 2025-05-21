@@ -95,7 +95,7 @@ const handleUpdate = async (event) => {
 tgllahirnya = date.current.value + " - " + month.current.value + " - " + tgllahir.current.value.trim();
           }
     else {
-     tgllahirnya = date.current.value + " - " + month.current.value + " - " + "nil";
+     tgllahirnya = date.current.value + " - " + month.current.value + " - nil";
    }
 
    if(noktp.current.value) {

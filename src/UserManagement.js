@@ -13,7 +13,6 @@ export const MainContext3 = React.createContext(null);
 
 
 const UserManagement = () => {
-  const [message, setMessage] = useState('');
   const [dataget, setDataget] = useState([]);
   const [handlefilter, setHandlefilter] = useState({filterpage: "Filterpagehid"});
   const words = useRef([]);
@@ -22,11 +21,6 @@ const UserManagement = () => {
   const lowLimittampil = useRef(1);
   const highLimit = useRef(14);
 
-const handleChange = (event) => {
-
-     setMessage(event.target.value);
-
-}
 
 const handleFilter = (event) => {
    let newHandlefilter = { filterpage: "Filterpageshow" };
@@ -186,8 +180,7 @@ return(
 <div className="filterinput">
 <div className="filtertextdiv">
 <Search className="searchbutton" />
-<input type="text" placeholder="Type keyword" className="filterinputtext" onChange={handleChange}
-onKeyDown={handleKeydown}/>
+<input type="text" placeholder="Type keyword" className="filterinputtext" onKeyDown={handleKeydown}/>
 </div>
 <div className="filterbuttondiv">
 <button onClick={handleFilter} className="filterinputbutton">
