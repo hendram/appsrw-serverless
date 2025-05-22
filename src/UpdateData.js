@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import Emitter from './Emitter';
 import Emitter2 from './Emitter';
 import Emitter3 from './Emitter';
@@ -22,10 +22,12 @@ const emergencyhp = useRef(null);
 const pemilikunit = useRef(null);
 const date = useRef(null);
 const month = useRef(null);
+  const [trigger, setTrigger] = useState(0);
 
 
 const fillinupdate = (actionvalue) => {
          temp.current = actionvalue;
+           setTrigger((prev) => prev + 1);
 }
 
 
@@ -47,7 +49,7 @@ useEffect(() => {
   emergencyhp.current.value = temp.current.emergencyhp;
   pemilikunit.current.value = temp.current.pemilikunit;
 }
-}, [temp.current]);
+}, [trigger]);
 
 const numberListenereven = Emitter.listenerCount('actioneven', fillinupdate);
 if(numberListenereven < 1){
