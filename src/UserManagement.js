@@ -53,16 +53,16 @@ const dicarinama = async() => {
 
 
 try {
-    const tokenu = localStorage.getItem('tokenu');
+    const token = localStorage.getItem('token');
 
-    if (!tokenu) {
+    if (!token) {
       // Redirect to the login page
       return;
     }
 
- await fetch("https://appsrwback-serverless.vercel.app/api/caridatanama", {
+ await fetch("http://localhost:3000/api/caridatanama", {
                method: "POST",
-               headers: { 'Content-Type': 'application/json', 'Authorization': tokenu },
+               headers: { 'Content-Type': 'application/json', 'Authorization': token },
                body: JSON.stringify(dicari)
 }).then((response) => response.json()
    ).then(function(data){
@@ -90,16 +90,16 @@ const dicariunit = async() => {
 
 
 try {
-    const tokenu = localStorage.getItem('tokenu');
+    const token = localStorage.getItem('token');
 
-    if (!tokenu) {
+    if (!token) {
       // Redirect to the login page
       return;
     }
 
- await fetch("https://appsrwback-serverless.vercel.app/api/caridataunit", {
+ await fetch("http://localhost:3000/api/caridataunit", {
                method: "POST",
-               headers: { 'Content-Type': 'application/json', 'Authorization': tokenu },
+               headers: { 'Content-Type': 'application/json', 'Authorization': token },
                body: JSON.stringify(dicari)
 }).then((response) => response.json()
    ).then(function(data){

@@ -1,4 +1,5 @@
 import React, {useState, useRef} from 'react';
+import { jwtDecode } from 'jwt-decode';
 import './Signinpage.css';
 
 const Signinpage = (props) => {
@@ -16,15 +17,15 @@ async function sendSignupMess(){
       let invitecodenya = invitecodesign.current.value;
       let datauser = {"operatorname": usernya, "password": passwordnya, "invite": invitecodenya }
      
-      await fetch("https://appsrwback-serverless.vercel.app/api/user", {
+      await fetch("http://localhost:3000/api/user", {
                method: "POST",
                headers: { 'Content-Type': 'application/json' },
                body: JSON.stringify(datauser)
 }).then((response) => response.json()
    ).then(function(data){
-if(data.tokenu){
+if(data.token){
  try{
-             localStorage.setItem('tokenu', data.tokenu);
+             localStorage.setItem('token', data.token);
          }
           catch (error) {
                console.error(error);
@@ -38,31 +39,31 @@ async function sendSigninMess(){
       let usernya = username.current.value;
       let passwordnya = password.current.value;
       let datauser = {"operatorname": usernya, "password": passwordnya }
+      const token = localStorage.getItem('token');
      
-      await fetch("https://appsrwback-serverless.vercel.app/api/user", {
+      await fetch("http://localhost:3000/api/user", {
                method: "POST",
-               headers: { 'Content-Type': 'application/json' },
+               headers: { 'Content-Type': 'application/json',
+               'Authorization': token ? token : '' },
                body: JSON.stringify(datauser)
 }).then((response) => response.json()
    ).then(function(data){
-      if(data.token){
-          try{
-             localStorage.setItem('token', data.token);
-         }
-          catch (error) {
-               console.error(error);
-         }
-          props.openadminpage("true");
+
+if (data.token) {
+   try {
+      localStorage.setItem('token', data.token);
+      const decoded = jwtDecode(data.token);
+
+      if (decoded.role === "admin") {
+         props.openadminpage("true");
+      } else {
+         props.opendataprocess("true");
+      }
+   } catch (err) {
+      console.error("Token error", err);
+   }
 }
-     else if(data.tokenu){
- try{
-             localStorage.setItem('tokenu', data.tokenu);
-         }
-          catch (error) {
-               console.error(error);
- }        
-          props.opendataprocess("true");
-}
+
 });
 }
 

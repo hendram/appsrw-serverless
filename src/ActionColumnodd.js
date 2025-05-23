@@ -29,16 +29,16 @@ const handleDelete = async (event) => {
 
 
 try {
-    const tokenu = localStorage.getItem('tokenu');
+    const token = localStorage.getItem('token');
 
-    if (!tokenu) {
+    if (!token) {
       // Redirect to the login page
       return;
     }
 
-    await fetch("https://appsrwback-serverless.vercel.app/api/action", {
+    await fetch("http://localhost:3000/api/action", {
                method: "POST",
-               headers: { 'Content-Type': 'application/json', 'Authorization': tokenu },
+               headers: { 'Content-Type': 'application/json', 'Authorization': token },
                body: JSON.stringify(dataaction)
 }).then((response) => response.json()
    ).then(function(data){

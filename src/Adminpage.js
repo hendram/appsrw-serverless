@@ -41,7 +41,7 @@ try {
       return;
     }
 
-       await fetch("https://appsrwback-serverless.vercel.app/api/operator", {
+       await fetch("http://localhost:3000/api/operator", {
                method: "POST",
                headers: { 'Content-Type': 'application/json', 'Authorization': token },
                body: JSON.stringify(operatordata)
@@ -76,7 +76,7 @@ try {
     }
 
 
-       await fetch("https://appsrwback-serverless.vercel.app/api/operator", {
+       await fetch("http://localhost:3000/api/operator", {
                method: "POST",
                headers: { 'Content-Type': 'application/json' },
                body: JSON.stringify(operatordata)
@@ -106,7 +106,7 @@ const handleBackup = async (event) => {
 
         let backupdata = {backup: "ok"};
 
-       await fetch("https://appsrwback-serverless.vercel.app/api/backupdb", {
+       await fetch("http://localhost:3000/api/backupdb", {
                method: "POST",
                headers: { 'Content-Type': 'application/json' },
                body: JSON.stringify(backupdata)
@@ -138,7 +138,7 @@ const handleUpload = async (event) => {
   const stream = await file.arrayBuffer();
     const streamData = new Uint8Array(stream);
 
-       await fetch("https://appsrwback-serverless.vercel.app/api/restoredb", {
+       await fetch("http://localhost:3000/api/restoredb", {
       method: 'POST',
       headers: {
         'content-type': 'application/octet-stream',

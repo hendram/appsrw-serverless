@@ -131,15 +131,15 @@ tgllahirnya = date.current.value + " - " + month.current.value + " - " + tgllahi
 
 
 try {
-    const tokenu = localStorage.getItem('tokenu');
+    const token = localStorage.getItem('token');
 
-    if (!tokenu) {
+    if (!token) {
       // Redirect to the login page
       return;
     }
-  await fetch("https://appsrwback-serverless.vercel.app/api/isidata", {
+  await fetch("http://localhost:3000/api/isidata", {
                method: "POST",
-               headers: { 'Content-Type': 'application/json', 'Authorization': tokenu },
+               headers: { 'Content-Type': 'application/json', 'Authorization': token },
                body: JSON.stringify(datainput)
 }).then((response) => response.json()
    ).then(function(data){
