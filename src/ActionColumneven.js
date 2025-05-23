@@ -3,11 +3,15 @@ import './ActionColumneven.css';
 import {MainContext3} from './UserManagement';
 import {MainContext4} from './DataProcess';
 import Emitter from './Emitter';
+import { useAuth } from './AuthContext';
+
 
 const ActionColumneven = (props) => {
 
 const c = useContext(MainContext3);
 const d = useContext(MainContext4);
+  const { token } = useAuth();
+
 
 const handleEdit = (event) => {
  event.stopPropagation();
@@ -30,7 +34,6 @@ const handleDelete = async (event) => {
 
 
 try {
-    const token = localStorage.getItem('token');
 
     if (!token) {
       // Redirect to the login page
@@ -39,7 +42,7 @@ try {
 
     await fetch(`${process.env.REACT_APP_API_BASE_URL}/action`, {
                method: "POST",
-               headers: { 'Content-Type': 'application/json', 'Authorization': token},
+               headers: { 'Content-Type': 'application/json', 'Authorization': token? token : ''},
                body: JSON.stringify(dataaction)
 }).then((response) => response.json()
    ).then(function(data){

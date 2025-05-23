@@ -1,4 +1,5 @@
 import React, {useState, useRef} from 'react';
+import { useAuth } from './AuthContext';
 import { jwtDecode } from 'jwt-decode';
 import './Signinpage.css';
 
@@ -10,6 +11,7 @@ repeatpassword: "Repeatpasswordtextinputdivhid", signin: "Signinbuttonshow"});
 const username = useRef(null);
 const password = useRef(null);
 const invitecodesign = useRef(null);
+const { login, token } = useAuth();
 
 async function sendSignupMess(){
       let usernya = username.current.value;
@@ -25,7 +27,7 @@ async function sendSignupMess(){
    ).then(function(data){
 if(data.token){
  try{
-             localStorage.setItem('token', data.token);
+         login(data.token);
          }
           catch (error) {
                console.error(error);
@@ -39,7 +41,6 @@ async function sendSigninMess(){
       let usernya = username.current.value;
       let passwordnya = password.current.value;
       let datauser = {"operatorname": usernya, "password": passwordnya }
-      const token = localStorage.getItem('token');
      
       await fetch(`${process.env.REACT_APP_API_BASE_URL}/user`, {
                method: "POST",
@@ -51,7 +52,7 @@ async function sendSigninMess(){
 
 if (data.token) {
    try {
-      localStorage.setItem('token', data.token);
+      login(data.token);
       const decoded = jwtDecode(data.token);
 
       if (decoded.role === "admin") {

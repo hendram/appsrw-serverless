@@ -7,6 +7,8 @@ import Arrowleft from './images/Arrowleft';
 import Arrowright from './images/Arrowright';
 import Emitter3 from './Emitter';
 import MenuBar from './MenuBar';
+import { useAuth } from './AuthContext';
+
 
 export const MainContext1 = React.createContext(null);
 export const MainContext3 = React.createContext(null);
@@ -20,7 +22,7 @@ const UserManagement = () => {
   const lowLimit = useRef(0);
   const lowLimittampil = useRef(1);
   const highLimit = useRef(14);
-
+  const { token } = useAuth();
 
 const handleFilter = (event) => {
    let newHandlefilter = { filterpage: "Filterpageshow" };
@@ -47,22 +49,21 @@ const filterUnit = () => {
 }
 
 
-const dicarinama = async() => {
+const dicarinama = async(activeToken) => {
 
      let dicari = {"nama": words.current[0], "lowlimit": lowLimit.current.toString(), "highlimit": highLimit.current.toString()};
 
 
 try {
-    const token = localStorage.getItem('token');
 
-    if (!token) {
+    if (!activeToken) {
       // Redirect to the login page
       return;
     }
 
  await fetch(`${process.env.REACT_APP_API_BASE_URL}/caridatanama`, {
                method: "POST",
-               headers: { 'Content-Type': 'application/json', 'Authorization': token },
+               headers: { 'Content-Type': 'application/json', 'Authorization': activeToken? activeToken : '' },
                body: JSON.stringify(dicari)
 }).then((response) => response.json()
    ).then(function(data){
@@ -82,7 +83,7 @@ try {
 }
 
 
-const dicariunit = async() => {
+const dicariunit = async(activeToken) => {
 
      
      let dicari = {"tower": words.current[0].charAt(0), "unit": words.current[0].substring(1),  "lowlimit": lowLimit.current.toString(), 
@@ -90,16 +91,15 @@ const dicariunit = async() => {
 
 
 try {
-    const token = localStorage.getItem('token');
 
-    if (!token) {
+    if (!activeToken) {
       // Redirect to the login page
       return;
     }
 
  await fetch(`${process.env.REACT_APP_API_BASE_URL}/caridataunit`, {
                method: "POST",
-               headers: { 'Content-Type': 'application/json', 'Authorization': token },
+               headers: { 'Content-Type': 'application/json', 'Authorization': activeToken ? activeToken : '' },
                body: JSON.stringify(dicari)
 }).then((response) => response.json()
    ).then(function(data){
@@ -118,13 +118,14 @@ try {
 
 }
 
-const callyangdicari = async() => {
+const callyangdicari = async(tokenArg) => {
+      const activeToken = tokenArg ?? token;
 
          if(yangdicari.current[0] === "nama"){
-         dicarinama();
+         dicarinama(activeToken);
    }
         else if(yangdicari.current[0] === "unit"){
-          dicariunit();
+          dicariunit(activeToken);
 }
 }
 

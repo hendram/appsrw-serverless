@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import './InputData.css';
-
+import { useAuth } from './AuthContext.js';
 
 const InputData = () => {
 
@@ -20,6 +20,7 @@ const emergencyhp = useRef(null);
 const pemilikunit = useRef(null);
 const date = useRef(null);
 const month = useRef(null);
+const { token } = useAuth();
 
 const handleSubmit = async (event) => {
    event.stopPropagation();
@@ -131,7 +132,7 @@ tgllahirnya = date.current.value + " - " + month.current.value + " - " + tgllahi
 
 
 try {
-    const token = localStorage.getItem('token');
+     
 
     if (!token) {
       // Redirect to the login page
@@ -139,7 +140,7 @@ try {
     }
   await fetch(`${process.env.REACT_APP_API_BASE_URL}/isidata`, {
                method: "POST",
-               headers: { 'Content-Type': 'application/json', 'Authorization': token },
+               headers: { 'Content-Type': 'application/json', 'Authorization': token? token : '' },
                body: JSON.stringify(datainput)
 }).then((response) => response.json()
    ).then(function(data){

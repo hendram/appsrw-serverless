@@ -3,6 +3,8 @@ import Emitter from './Emitter';
 import Emitter2 from './Emitter';
 import Emitter3 from './Emitter';
 import './UpdateData.css';
+import { useAuth } from './AuthContext';
+
 
 const UpdateData = () => {
 
@@ -23,6 +25,7 @@ const pemilikunit = useRef(null);
 const date = useRef(null);
 const month = useRef(null);
   const [trigger, setTrigger] = useState(0);
+  const { token } = useAuth();
 
 
 const fillinupdate = (actionvalue) => {
@@ -175,7 +178,6 @@ tgllahirnya = date.current.value + " - " + month.current.value + " - " + tgllahi
 
 
 try {
-    const token = localStorage.getItem('token');
 
     if (!token) {
       // Redirect to the login page
@@ -184,7 +186,7 @@ try {
 
   await fetch(`${process.env.REACT_APP_API_BASE_URL}/updatedata`, {
                method: "POST",
-               headers: { 'Content-Type': 'application/json', 'Authorization': token },
+               headers: { 'Content-Type': 'application/json', 'Authorization': token ? token : '' },
                body: JSON.stringify(datainput)
 }).then((response) => response.json()
    ).then(function(data){
@@ -205,7 +207,7 @@ try {
    emergencyhp.current.value = "";
    pemilikunit.current.value = "";
 
-    Emitter3.emit('refreshsearch', "");         
+    Emitter3.emit('refreshsearch', token);         
 }
 });
 } catch (error) {

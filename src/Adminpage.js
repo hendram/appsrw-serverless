@@ -1,5 +1,7 @@
 import React, {useRef, useState} from 'react';
 import './Adminpage.css';
+import { useAuth } from './AuthContext.js';
+
 
 const Adminpage = () => {
 
@@ -13,6 +15,8 @@ const resultrandomoperator = useRef(null);
 const operatorname = useRef(null);
 const successsubmit = useRef(null);
 const successdelete = useRef(null);
+const { token } = useAuth();
+
 
 function forbuttonclick(event){
         event.stopPropagation();
@@ -34,7 +38,6 @@ const handleSubmitoperator = async(event) => {
     let operatordata = {"operatorname": namaoperator, "invite": randomx }
 
 try {
-    const token = localStorage.getItem('token');
 
     if (!token) {
       // Redirect to the login page
@@ -43,7 +46,7 @@ try {
 
        await fetch(`${process.env.REACT_APP_API_BASE_URL}/operator`, {
                method: "POST",
-               headers: { 'Content-Type': 'application/json', 'Authorization': token },
+               headers: { 'Content-Type': 'application/json', 'Authorization': token? token : '' },
                body: JSON.stringify(operatordata)
 }).then((response) =>  response.json()
        ).then(function(data){
@@ -68,7 +71,6 @@ const handleDeleteoperator = async(event) => {
 
 
 try {
-    const token = localStorage.getItem('token');
 
     if (!token) {
       // Redirect to the login page
@@ -78,7 +80,7 @@ try {
 
        await fetch(`${process.env.REACT_APP_API_BASE_URL}/operator`, {
                method: "POST",
-               headers: { 'Content-Type': 'application/json' },
+               headers: { 'Content-Type': 'application/json', 'Authentication': token? token : '' },
                body: JSON.stringify(operatordata)
 }).then((response) =>  response.json()
        ).then(function(data){
