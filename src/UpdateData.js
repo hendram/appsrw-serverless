@@ -182,7 +182,7 @@ try {
       return;
     }
 
-  await fetch("http://localhost:3000/api/updatedata", {
+  await fetch(`${process.env.REACT_APP_API_BASE_URL}/updatedata`, {
                method: "POST",
                headers: { 'Content-Type': 'application/json', 'Authorization': token },
                body: JSON.stringify(datainput)

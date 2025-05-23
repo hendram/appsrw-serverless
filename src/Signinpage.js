@@ -17,7 +17,7 @@ async function sendSignupMess(){
       let invitecodenya = invitecodesign.current.value;
       let datauser = {"operatorname": usernya, "password": passwordnya, "invite": invitecodenya }
      
-      await fetch("http://localhost:3000/api/user", {
+      await fetch(`${process.env.REACT_APP_API_BASE_URL}/user`, {
                method: "POST",
                headers: { 'Content-Type': 'application/json' },
                body: JSON.stringify(datauser)
@@ -41,7 +41,7 @@ async function sendSigninMess(){
       let datauser = {"operatorname": usernya, "password": passwordnya }
       const token = localStorage.getItem('token');
      
-      await fetch("http://localhost:3000/api/user", {
+      await fetch(`${process.env.REACT_APP_API_BASE_URL}/user`, {
                method: "POST",
                headers: { 'Content-Type': 'application/json',
                'Authorization': token ? token : '' },

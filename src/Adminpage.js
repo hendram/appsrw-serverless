@@ -41,7 +41,7 @@ try {
       return;
     }
 
-       await fetch("http://localhost:3000/api/operator", {
+       await fetch(`${process.env.REACT_APP_API_BASE_URL}/operator`, {
                method: "POST",
                headers: { 'Content-Type': 'application/json', 'Authorization': token },
                body: JSON.stringify(operatordata)
@@ -76,7 +76,7 @@ try {
     }
 
 
-       await fetch("http://localhost:3000/api/operator", {
+       await fetch(`${process.env.REACT_APP_API_BASE_URL}/operator`, {
                method: "POST",
                headers: { 'Content-Type': 'application/json' },
                body: JSON.stringify(operatordata)
@@ -106,7 +106,7 @@ const handleBackup = async (event) => {
 
         let backupdata = {backup: "ok"};
 
-       await fetch("http://localhost:3000/api/backupdb", {
+       await fetch(`${process.env.REACT_APP_API_BASE_URL}/backupdb`, {
                method: "POST",
                headers: { 'Content-Type': 'application/json' },
                body: JSON.stringify(backupdata)
@@ -138,7 +138,7 @@ const handleUpload = async (event) => {
   const stream = await file.arrayBuffer();
     const streamData = new Uint8Array(stream);
 
-       await fetch("http://localhost:3000/api/restoredb", {
+       await fetch(`${process.env.REACT_APP_API_BASE_URL}/restoredb`, {
       method: 'POST',
       headers: {
         'content-type': 'application/octet-stream',

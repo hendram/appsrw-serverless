@@ -60,7 +60,7 @@ try {
       return;
     }
 
- await fetch("http://localhost:3000/api/caridatanama", {
+ await fetch(`${process.env.REACT_APP_API_BASE_URL}/caridatanama`, {
                method: "POST",
                headers: { 'Content-Type': 'application/json', 'Authorization': token },
                body: JSON.stringify(dicari)
@@ -97,7 +97,7 @@ try {
       return;
     }
 
- await fetch("http://localhost:3000/api/caridataunit", {
+ await fetch(`${process.env.REACT_APP_API_BASE_URL}/caridataunit`, {
                method: "POST",
                headers: { 'Content-Type': 'application/json', 'Authorization': token },
                body: JSON.stringify(dicari)

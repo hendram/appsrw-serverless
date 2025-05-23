@@ -137,7 +137,7 @@ try {
       // Redirect to the login page
       return;
     }
-  await fetch("http://localhost:3000/api/isidata", {
+  await fetch(`${process.env.REACT_APP_API_BASE_URL}/isidata`, {
                method: "POST",
                headers: { 'Content-Type': 'application/json', 'Authorization': token },
                body: JSON.stringify(datainput)
